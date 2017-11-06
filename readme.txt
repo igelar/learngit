@@ -1,5 +1,4 @@
-Git is free distributed software.
-Git tracks change.
-Git tracks change again.
-1>>>><<<<<2
-工作区修改
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes of files.
