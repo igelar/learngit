@@ -1,0 +1,109 @@
+$ git 查看是否安装git
+$ git config --global user.name "Your Name"
+$ git config --global user.email "email@example.com"
+
+$ mkdir learngit
+$ cd learngit
+$ pwd  显示当前目录
+/Users/michael/learngit
+
+$ git init  初始化一个Git仓库
+Initialized empty Git repository in /Users/michael/learngit/.git/
+
+$ git add readme.txt
+$ git add file2.txt file3.txt
+$ git commit -m "wrote a readme file"
+[master (root-commit) cb926e7] wrote a readme file
+1 file changed, 2 insertions(+)
+create mode 100644 readme.txt
+
+$ git status
+# On branch master# Changes not staged for commit:# (use "git add <file>..." to update what will be committed)# (use "git checkout -- <file>..." to discard changes in working directory)## modified: readme.txt#
+no changes added to commit (use "git add" and/or "git commit -a")
+
+$ git diff readme.txt
+diff --git a/readme.txt b/readme.txt
+index 46d49bf..9247db6 100644
+--- a/readme.txt
++++ b/readme.txt
+@@ -1,2 +1,2 @@
+-Git is a version control system.
++Git is a distributed version control system.
+Git is free software.
+
+$ git log --pretty=oneline   显示最近3次提交
+3628164fb26d48395383f8f31179f24e0882e1e0 append GPL
+ea34578d5496d7dd233c827ed32a8cd576c5ee85 add distributed
+cb926e7ea50ad11b8f9e909c05226233bf755030 wrote a readme file
+
+$ git reset --hard HEAD^  HEAD当前版本，HEAD^上一版本，HEAD^^上上版本，HEAD~n 上n个版本
+HEAD is now at ea34578 add distributed
+$ git reset --hard 3628164  根据版本号回退
+HEAD is now at 3628164 append GPL
+
+$ git reflog  查看历史命令
+ea34578 HEAD@{0}: reset: moving to HEAD^
+3628164 HEAD@{1}: commit: append GPLea34578 HEAD@{2}: commit: add distributedcb926e7 HEAD@{3}: commit (initial): wrote a readme file
+
+git diff 是工作区和暂存区的对比
+git diff -- cached 是暂存区和分支的对比 
+git diff HEAD -- readme.txt 工作区和分支的对比
+
+git checkout -- file 丢弃工作区修改
+git reset HEAD file, git checkout -- file 丢弃暂存区修改
+
+$ git rm test.txt 删除文件
+
+$ ssh-keygen -t rsa -C "youremail@example.com" 生成ssh秘钥
+
+$ git remote add origin git@github.com:igelar/learngit.git 设置远程库
+$ git push -u origin master 本地文件推送到远程库（第一次）
+$ git push origin master 后续推送
+
+$ git clone git@github.com:igelar/gitskills.git
+
+git branch   查看分支
+git branch <name>   创建分支
+git checkout <name>   切换分支
+git checkout -b <name>   创建+切换分支
+git merge <name>    合并某分支到当前分支
+git branch -d <name>   删除分支
+git log --graph   查看分支合并图
+$ git log --graph --pretty=oneline --abbrev-commit
+
+$ git merge --no-ff -m "merge with no-ff" dev 普通模式合并，log中有分支记录
+
+$ git stash 隐藏当前工作现场
+$ git stash pop   恢复工作现场并删除stash
+
+git branch -D <name>   强行删除未合并的分支
+
+
+
+	* 查看远程库信息，使用git remote -v；
+	* 本地新建的分支如果不推送到远程，对其他人就是不可见的；
+	* 从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；
+	* 在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
+	* 建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name；
+	* 从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。
+
+
+
+	* 命令git tag <name>用于新建一个标签，默认为HEAD，也可以指定一个commit id；
+	* git tag -a <tagname> -m "blablabla..."可以指定标签信息；
+	* git tag -s <tagname> -m "blablabla..."可以用PGP签名标签；
+	* 命令git tag可以查看所有标签。
+
+
+
+	* 命令git push origin <tagname>可以推送一个本地标签；
+	* 命令git push origin --tags可以推送全部未推送过的本地标签；
+	* 命令git tag -d <tagname>可以删除一个本地标签；
+	* 命令git push origin :refs/tags/<tagname>可以删除一个远程标签。
+
+git remote -v 查看远程库
+git remote rm origin 删除origin远程库
+git remote add github git@github.com:igelar/learngit.git 关联
+git remote add gitee git@gitee.com:igelar/learngit.git 关联
+
+$ git config --global alias.st status 别名
